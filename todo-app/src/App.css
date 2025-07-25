@@ -1,6 +1,6 @@
 /* App全体の簡単なスタイル */
 .App {
-  max-width: 480px;
+  max-width: 1200px;
   margin: 40px auto;
   padding: 24px;
   background: #fff;
@@ -8,59 +8,200 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", "Meiryo", sans-serif;
 }
-input,
-select {
-  margin-right: 8px;
-  padding: 4px 8px;
-  font-size: 1rem;
+
+/* TODOフォームのスタイル */
+.todo-form {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
 }
-button {
-  padding: 4px 12px;
+
+.todo-form input {
+  width: 300px;
+  margin-right: 8px;
+  padding: 8px 12px;
   font-size: 1rem;
-  background: #1976d2;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.member-selection {
+  margin: 12px 0;
+}
+
+.member-selection h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.member-checkbox {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.member-checkbox input {
+  margin-right: 2px;
+}
+
+/* カンバンボードのスタイル */
+.kanban-board {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.kanban-column h3 {
+  margin: 0 0 16px 0;
+  padding: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ドラッグ可能なアイテムのスタイル */
+.todo-item {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: move;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.todo-item:active {
+  cursor: grabbing;
+}
+
+/* ドラッグオーバー時のカンバンカラムのスタイル */
+.kanban-column {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 400px;
+  transition: background-color 0.2s;
+}
+
+.kanban-column:hover {
+  background: #e9ecef;
+}
+
+/* ドラッグ可能なアイテムのスタイル */
+.todo-item {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: move;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.todo-item:active {
+  cursor: grabbing;
+}
+
+.todo-text {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #212529;
+}
+
+.todo-members {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.status-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.status-button {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex: 1;
+  min-width: 0;
+}
+
+.status-button:hover {
+  background: #0056b3;
+}
+
+/* ドラッグオーバー時のカンバンカラムのスタイル */
+.kanban-column {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 400px;
+  transition: background-color 0.2s;
+}
+
+.kanban-column:hover {
+  background: #e9ecef;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .App {
+    max-width: 100%;
+    margin: 20px;
+    padding: 16px;
+  }
+  
+  .kanban-board {
+    flex-direction: column;
+  }
+  
+  .todo-form input {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background: #28a745;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
+
 button:hover {
-  background: #1565c0;
-}
-ul {
-  margin-top: 16px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background: #218838;
 }
