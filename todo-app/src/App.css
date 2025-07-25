@@ -37,13 +37,13 @@
 }
 
 .member-checkbox {
-  display: inline-block;
-  margin-right: 16px;
+  display: block;
+  margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
 .member-checkbox input {
-  margin-right: 4px;
+  margin-right: 2px;
 }
 
 /* カンバンボードのスタイル */
@@ -51,14 +51,6 @@
   display: flex;
   gap: 16px;
   margin-top: 24px;
-}
-
-.kanban-column {
-  flex: 1;
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 16px;
-  min-height: 400px;
 }
 
 .kanban-column h3 {
@@ -77,12 +69,58 @@
   gap: 8px;
 }
 
+/* ドラッグ可能なアイテムのスタイル */
 .todo-item {
   background: white;
   border: 1px solid #dee2e6;
   border-radius: 6px;
   padding: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: move;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.todo-item:active {
+  cursor: grabbing;
+}
+
+/* ドラッグオーバー時のカンバンカラムのスタイル */
+.kanban-column {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 400px;
+  transition: background-color 0.2s;
+}
+
+.kanban-column:hover {
+  background: #e9ecef;
+}
+
+/* ドラッグ可能なアイテムのスタイル */
+.todo-item {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: move;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.todo-item:active {
+  cursor: grabbing;
 }
 
 .todo-text {
@@ -97,6 +135,13 @@
   margin-bottom: 8px;
 }
 
+.status-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
 .status-button {
   padding: 4px 8px;
   font-size: 0.8rem;
@@ -106,10 +151,26 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+  flex: 1;
+  min-width: 0;
 }
 
 .status-button:hover {
   background: #0056b3;
+}
+
+/* ドラッグオーバー時のカンバンカラムのスタイル */
+.kanban-column {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 400px;
+  transition: background-color 0.2s;
+}
+
+.kanban-column:hover {
+  background: #e9ecef;
 }
 
 /* レスポンシブ対応 */

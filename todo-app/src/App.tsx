@@ -37,25 +37,11 @@ function App() {
     setSelectedMembers([]);
   };
 
-  const handleStatusChange = (id: number) => {
+  const handleStatusChange = (id: number, newStatus: Status) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          let nextStatus: Status;
-          switch (todo.status) {
-            case Status.TODO:
-              nextStatus = Status.PROGRESS;
-              break;
-            case Status.PROGRESS:
-              nextStatus = Status.DONE;
-              break;
-            case Status.DONE:
-              nextStatus = Status.TODO;
-              break;
-            default:
-              nextStatus = Status.TODO;
-          }
-          return { ...todo, status: nextStatus };
+          return { ...todo, status: newStatus };
         }
         return todo;
       })
@@ -67,6 +53,30 @@ function App() {
       .map((id) => members.find((m) => m.id === id)?.name)
       .filter(Boolean)
       .join(", ");
+  };
+
+  const [draggedTodo, setDraggedTodo] = useState<Todo | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, todo: Todo) => {
+    setDraggedTodo(todo);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetStatus: Status) => {
+    e.preventDefault();
+    if (draggedTodo && draggedTodo.status !== targetStatus) {
+      handleStatusChange(draggedTodo.id, targetStatus);
+    }
+    setDraggedTodo(null);
+  };
+
+  const getAvailableStatuses = (currentStatus: Status) => {
+    return Object.values(Status).filter(status => status !== currentStatus);
   };
 
   const handleMemberToggle = (memberId: number) => {
@@ -82,23 +92,37 @@ function App() {
   };
 
   const renderColumn = (status: Status, title: string) => (
-    <div className="kanban-column">
+    <div 
+      className="kanban-column"
+      onDragOver={handleDragOver}
+      onDrop={(e) => handleDrop(e, status)}
+    >
       <h3>{title}</h3>
       <div className="todo-list">
         {getTodosByStatus(status).map((todo) => (
-          <div key={todo.id} className="todo-item">
+          <div 
+            key={todo.id} 
+            className="todo-item"
+            draggable
+            onDragStart={(e) => handleDragStart(e, todo)}
+          >
             <div className="todo-text">{todo.text}</div>
             <div className="todo-members">
               担当: {getMemberNames(todo.memberIds)}
             </div>
-            <button
-              className="status-button"
-              onClick={() => handleStatusChange(todo.id)}
-            >
-              {status === Status.TODO && "開始する"}
-              {status === Status.PROGRESS && "完了する"}
-              {status === Status.DONE && "戻す"}
-            </button>
+            <div className="status-buttons">
+              {getAvailableStatuses(todo.status).map((availableStatus) => (
+                <button
+                  key={availableStatus}
+                  className="status-button"
+                  onClick={() => handleStatusChange(todo.id, availableStatus)}
+                >
+                  {availableStatus === Status.TODO && "TODOに戻す"}
+                  {availableStatus === Status.PROGRESS && "進行中にする"}
+                  {availableStatus === Status.DONE && "完了にする"}
+                </button>
+              ))}
+            </div>
           </div>
         ))}
       </div>
