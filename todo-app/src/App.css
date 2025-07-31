@@ -40,10 +40,11 @@
   display: block;
   margin-bottom: 8px;
   font-size: 0.9rem;
+  text-align: left;
 }
 
 .member-checkbox input {
-  margin-right: 2px;
+  margin-right: 0px;
 }
 
 /* カンバンボードのスタイル */
