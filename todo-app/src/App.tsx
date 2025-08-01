@@ -19,9 +19,12 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMembers(data);
+      })
+      .catch((error) => {
+        console.error("Failed to load members:", error);
+        // Consider showing an error message to the user
       });
   }, []);
-
   const handleAdd = () => {
     if (!input.trim() || selectedMembers.length === 0) return;
     setTodos([
@@ -59,12 +62,12 @@ function App() {
 
   const handleDragStart = (e: React.DragEvent, todo: Todo) => {
     setDraggedTodo(todo);
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.effectAllowed = "move";
   };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.dropEffect = "move";
   };
 
   const handleDrop = (e: React.DragEvent, targetStatus: Status) => {
@@ -76,7 +79,7 @@ function App() {
   };
 
   const getAvailableStatuses = (currentStatus: Status) => {
-    return Object.values(Status).filter(status => status !== currentStatus);
+    return Object.values(Status).filter((status) => status !== currentStatus);
   };
 
   const handleMemberToggle = (memberId: number) => {
@@ -92,7 +95,7 @@ function App() {
   };
 
   const renderColumn = (status: Status, title: string) => (
-    <div 
+    <div
       className="kanban-column"
       onDragOver={handleDragOver}
       onDrop={(e) => handleDrop(e, status)}
@@ -100,8 +103,8 @@ function App() {
       <h3>{title}</h3>
       <div className="todo-list">
         {getTodosByStatus(status).map((todo) => (
-          <div 
-            key={todo.id} 
+          <div
+            key={todo.id}
             className="todo-item"
             draggable
             onDragStart={(e) => handleDragStart(e, todo)}
