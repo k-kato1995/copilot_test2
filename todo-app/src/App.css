@@ -18,12 +18,17 @@
 }
 
 .todo-form input {
-  width: 300px;
+  width: 100%;
   margin-right: 8px;
   padding: 8px 12px;
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.todo-form input[type="checkbox"] {
+  width: 20px;
 }
 
 .member-selection {
@@ -37,14 +42,15 @@
 }
 
 .member-checkbox {
-  display: block;
+  display: flex;
+  align-items: center;
   margin-bottom: 8px;
   font-size: 0.9rem;
   text-align: left;
 }
 
 .member-checkbox input {
-  margin-right: 0px;
+  margin-right: 0;
 }
 
 /* カンバンボードのスタイル */
@@ -181,11 +187,11 @@
     margin: 20px;
     padding: 16px;
   }
-  
+
   .kanban-board {
     flex-direction: column;
   }
-  
+
   .todo-form input {
     width: 100%;
     margin-bottom: 8px;
