@@ -3,9 +3,15 @@ export type Member = {
   name: string;
 };
 
+export enum Status {
+  TODO = 'TODO',
+  PROGRESS = 'PROGRESS',
+  DONE = 'DONE',
+}
+
 export type Todo = {
   id: number;
   text: string;
-  memberId: number;
-  done: boolean;
+  memberIds: number[];
+  status: Status;
 };
